@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Guia Perguntas</title>
+</head>
+
+<body>
+    <h1>Guia ade perguntas</h1>
+    <hr>
+    <p>aprendendo html e express</p>
+
+    <h1><%= nome %></h1>
+    <h2><%= lang %></h2>
+    <h3><%= empresa %></h3>
+    <hr>
+    <h4>Inscritos: <%= inscritos %></h4>
+
+    <!-- IF E ELSE
+  <% if(msg == true) { %>
+    <h3>Isso é uma msg de erro!!</h3>
+ <%} else {%>
+    <h3>Nenhum erro!!</h3>
+    <%}%>
+    -->
+    <% produtos.forEach(function(produto) { %>
+    <hr>
+    <%= produto.nome %><br>
+    <%= produto.preco %>
+
+    <% }) %>
+
+
+</body>
+
+</html>
