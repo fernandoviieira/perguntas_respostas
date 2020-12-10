@@ -2,32 +2,42 @@
 
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser")
+const connection = require("./database/database")
+
+//DATABASE
+connection
+    .authenticate()
+    .then(() => {
+        console.log('Conexão feita com sucesso!!')
+    })
+
+    .catch((msgerro) => {
+       console.log(msgerro)
+    })
 
 //Estou dizendo para o express usar o EJS como view engine
-app.set("view engine","ejs");
+app.set("view engine", "ejs");
 app.use(express.static('public'))
 
-app.get("/:nome/:lang", (req, res) => {
-    var nome = req.params.nome
-    var lang = req.params.lang
-    let exibirMsg = false
+// Body Parser
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
-    var produtos = [
-        {nome:"Leite", preco:3.14},
-        {nome:"Coca-Cola", preco:8.70},
-        {nome:"Doritos", preco:4.70}
-    ]
-
-
-    res.render("index",{
-        nome: nome,
-        lang: lang,
-        empresa: "empresa",
-        inscritos:8000,
-        msg: exibirMsg,
-        produtos: produtos
-    })
+// ROTAS
+app.get("/perguntas", (req, res) => {
+    res.render("perguntas")
 });
 
-app.listen(8080,() =>{console.log("app rodando!");});
+app.get("/", (req, res) => {
+    res.render("index")
+});
+
+app.post("/salvarpergunta", (req, res) => {
+    var titulo = req.body.titulo
+    var descricao = req.body.descricao
+    res.send(`Formulario enviado com titulo: ${titulo} e a descricao: ${descricao}`)
+})
+
+app.listen(8080, () => { console.log("app rodando!"); });
 
